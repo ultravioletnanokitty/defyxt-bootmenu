@@ -26,10 +26,8 @@
 #
 
 on boot-pause
-   # exec system/bin/battery_charger
+    exec system/bin/battery_charger
     write /sys/class/leds/lcd-backlight/brightness 120
-	mkdir /mnt/ctest 0700
-	busybox killall bootmenu
 
 on boot
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
@@ -49,11 +47,7 @@ on boot
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    
-	# SD changed from stock
-	#mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
-	mkdir /data/system/wpa_supplicant 0770 wifi wifi
-	
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
     #+++chandler
     chmod 0770 /data/misc/wifi
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
@@ -70,7 +64,7 @@ on boot
 	# Create the certification direction
     mkdir /data/certificate 0777 system system
     chmod 0755 /system/etc/wifi/cert_chmod.sh
-	
+
     mkdir /data/misc/wifi/cert
     mkdir /data/misc/wifi/cert/as
     mkdir /data/misc/wifi/cert/user
@@ -92,8 +86,7 @@ on boot
      # Create directory from IMS services
     mkdir /data/shared 0775
 
-	mkdir /data/shared_test
-	
+
     #Set SUID bit for usbhub
     chmod 0755 /system/bin/usbhub
     chmod 755 /system/bin/usbhub_init
@@ -186,7 +179,7 @@ on property:ro.emmc=1
 
 service hciattach /system/bin/sh /system/etc/init.bcm4330.bt.sh
     user bluetooth
-    group qcom_oncrpc bluetooth net_bt_admin fm_radio
+    group qcom_oncrpc bluetooth net_bt_admin fm_radio radio
     disabled
     oneshot
 
@@ -279,9 +272,8 @@ service amp_unload /system/bin/amploader -u
     oneshot
     
 # WFD chihchia 11.09.07 +++ 
-service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-# changed ctrl_interface=DIR=/data/system/wpa_supplicant
-# insmod /system/lib/modules/dhd.ko iface_name=wlan firmware_path=/system/etc/bcm4330/fw_bcm4330b2.bin nvram_path=/system/etc/bcm4330/bcm94330wlsdgbphone.txt dhd_msg_level=1
+service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+
 #service wpa_supplicant /system/bin/wpa_supplicant \
 #    -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -puse_p2p_group_interface=1
     #user root
@@ -290,10 +282,6 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wi
     disabled
     oneshot
 
-service dhcpcd /system/bin/dhcpcd -ABKL wlan0
-    disabled
-    oneshot
-	
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL wlan0
     disabled
     oneshot

@@ -7,7 +7,7 @@ chmod 777 /data/local/tmp/busybox
 # install busybox
 /data/local/tmp/busybox cp /data/local/tmp/busybox /system/bin/busybox
 chmod 755 /system/bin/busybox
-ln -s /system/bin/busybox /system/bin/cp
+busybox --install /system/bin
 
 # copy over bootmenu
 rm -r /system/bootmenu
@@ -16,9 +16,11 @@ chmod 755 /system/bootmenu/binary/*
 chmod 755 /system/bootmenu/script/*
 
 # copy binaries
-mv /system/bin/battery_charger /system/bin/battery_charger.bin
+rm /system/bin/battery_charger /system/bin/battery_charger.bin
 cp /data/local/tmp/battery_charger /system/bin/battery_charger
 chmod 755 /system/bin/battery_charger
+cp /data/local/tmp/battery_charger.bin /system/bin/battery_charger.bin
+chmod 755 /system/bin/battery_charger.bin
 cp /data/local/tmp/sysinit /system/bin/sysinit
 chmod 755 /system/bin/sysinit
 cp /data/local/tmp/vpnclientpm /system/bin/vpnclientpm

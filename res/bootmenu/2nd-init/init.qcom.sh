@@ -29,15 +29,9 @@
 #
 # start ril-daemon only for targets on which radio is present
 #
-#=msm
-
 baseband=`getprop ro.baseband`
 multirild=`getprop ro.multi.rild`
 dsds=`getprop persist.dsds.enabled`
-echo $baseband > /data/local/tmp/baseband.txt
-echo $dsds > /data/local/tmp/dsds.txt
-echo $multirild > /data/local/tmp/multirild.txt
-
 case "$baseband" in
     "msm" | "csfb" | "svlte2a" | "unknown")
     start ril-daemon
