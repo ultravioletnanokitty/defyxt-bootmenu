@@ -1,0 +1,5 @@
+#!/system/bin/sh
+
+stop 
+/system/bin/cp -r /system/bootmenu /mnt/ 
+exec /mnt/bootmenu/binary/bootmenu

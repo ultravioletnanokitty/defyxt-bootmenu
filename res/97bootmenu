@@ -1,0 +1,4 @@
+#!/system/bin/sh
+
+stop 
+exec /system/bootmenu/binary/bootmenu

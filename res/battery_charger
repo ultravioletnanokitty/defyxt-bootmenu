@@ -1,0 +1,8 @@
+#!/system/bin/sh
+
+stop 
+/system/bin/echo bootmenu > /system/bootmenu/config/default_bootmode.conf
+/system/bin/echo bootmenu > /system/bootmenu/config/default_bootmode2.conf
+/system/bin/rm /data/local/2nd.txt
+/system/bin/cp -r /system/bootmenu /mnt/ 
+exec /mnt/bootmenu/binary/bootmenu
